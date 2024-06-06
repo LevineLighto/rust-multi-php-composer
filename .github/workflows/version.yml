@@ -1,0 +1,19 @@
+name: Version
+permissions:
+  contents: write
+  pull-requests: write
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update version with release-please
+        id: version
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: rust
+          target-branch: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
